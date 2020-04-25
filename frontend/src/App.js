@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {
+    BrowserRouter as Router,
+    Route, Switch,
+} from 'react-router-dom';
+import Shop from './components/shop/ShopComponent';
+import homeImage from './assets/img/home.png';
+import cartImage from './assets/img/cart.png';
+import ItemPage from "./components/shop/ItemPage";
+import Cart from "./components/cart/CartComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')));
+
+    function handleCartUpdate() {
+        setCartItems(JSON.parse(localStorage.getItem('cart')));
+    }
+
+    return (
+        <Router>
+            <Route>
+                <nav className="navbar navbar-dark bg-dark">
+                    <a className="navbar-brand" href="/">
+                        <img src={homeImage} alt="home" height={50} width={50}/>
+                    </a>
+                    <a className="navbar-brand" href="/cart">
+                        <img src={cartImage} alt="home" height={50} width={50}/>
+                        {cartItems && cartItems.length ? <div className={'cart-length'}>{cartItems && cartItems.length}</div> : null}
+                    </a>
+                </nav>
+            </Route>
+            <div className="container">
+                <Switch>
+                    <Route exact path='/'>
+                        <Shop/>
+                    </Route>
+                    <Route exact path='/cart'>
+                        <Cart/>
+                    </Route>
+                    <Route exact path='/item/:id' children={ItemPage}/>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
