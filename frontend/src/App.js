@@ -35,10 +35,8 @@ function App() {
                     <Route exact path='/'>
                         <Shop/>
                     </Route>
-                    <Route exact path='/cart'>
-                        <Cart/>
-                    </Route>
-                    <Route exact path='/item/:id' children={ItemPage}/>
+                    <Route exact path='/cart' render={(props) => <Cart {...props} handleCartUpdate={handleCartUpdate} />}/>
+                    <Route exact path='/item/:id' render={(props) => <ItemPage {...props} handleCartUpdate={handleCartUpdate} />}/>
                 </Switch>
             </div>
         </Router>

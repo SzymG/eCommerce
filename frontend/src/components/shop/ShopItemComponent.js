@@ -11,7 +11,7 @@ function ShopItem(props) {
             pathname: redirectUrl,
             state: {
                 item: props.item
-            }
+            },
         }}>
             <div className={'name'}>{props.item.name}</div>
             <div className={'price'}>CENA: {props.item.price}</div>

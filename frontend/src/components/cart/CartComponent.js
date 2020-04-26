@@ -3,34 +3,59 @@ import '../../styles/cart/style.css';
 import CartItem from "./CartItemComponent";
 
 
-function Cart(props) {
-    const cartItems = JSON.parse(localStorage.getItem('cart'));
+class Cart extends React.Component {
 
-    function buy() {
+    constructor(props) {
+        super(props);
+        this.state= {
+            cart: JSON.parse(localStorage.getItem('cart')),
+        };
+        this.deleteHandler = this.deleteHandler.bind(this);
+    }
+
+    buy() {
         console.log("BUYED")
     }
 
-    function sumPrices() {
+    sumPrices() {
         let price = 0;
 
-        cartItems.forEach((item) => {
+        this.state.cart.forEach((item) => {
             price += item.price;
         });
 
         return price;
     }
 
-    return <div className={'cart-container col-12'}>
-        <div className="row">
-            {cartItems ? cartItems.map((item) => {
-                return <CartItem item={item} key={item.id}/>
-            }) : ''}
-            <div className="col-12 my-4 price-container">SUMA: {sumPrices()}</div>
-            <div className="col-12" onClick={buy}>
-                <button type="button" className="btn btn-primary btn-block btn-lg">ZAKOŃCZ ZAKUPY</button>
-            </div>
-        </div>
-    </div>;
+    deleteHandler(item) {
+        const cartItems = this.state.cart;
+
+        for (let i = 0; i < cartItems.length; i++) {
+            if(cartItems[i].cartId === item.cartId) {
+                cartItems.splice(i,1);
+            }
+        }
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        this.setState(() => ({
+            cart: cartItems
+        }));
+        this.props.handleCartUpdate();
+    }
+    render() {
+        return this.state.cart && this.state.cart.length ?
+            <div className={'cart-container col-12'}>
+                <div className="row">
+                    {this.state.cart ? this.state.cart.map((item) => {
+                        return <CartItem item={item} key={item.cartId} deleteHandler={this.deleteHandler}/>
+                    }) : ''}
+                    <div className="col-12 my-4 price-container">SUMA: {this.sumPrices()}</div>
+                    <div className="col-12 mb-4" onClick={this.buy}>
+                        <button type="button" className="btn btn-primary btn-block btn-lg">ZAKOŃCZ ZAKUPY</button>
+                    </div>
+                </div>
+            </div> : <div className={'empty-cart pt-4'}>TWÓJ KOSZYK JEST PUSTY</div>;
+    }
+
 }
 
 export default Cart;

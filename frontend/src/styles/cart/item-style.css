@@ -1,12 +1,22 @@
-.cart-item-container img {
+.cart-item-container .icon img {
     width: 100%;
     border-radius: 3px;
 }
 
+.cart-item-container .content-container {
+    display: flex;
+    align-items: center;
+}
+
 .cart-item-container .info-container {
+    width: 100%;
     color: #343a40;
     text-transform: uppercase;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
+}
+
+.cart-item-container .trash-container {
+    cursor: pointer;
 }

@@ -25,3 +25,11 @@
     font-size: 2rem;
     font-weight: bold;
 }
+
+.item-page-container #alert-container {
+    display: none;
+}
+
+.item-page-container #alert-container .close {
+    cursor: pointer;
+}
