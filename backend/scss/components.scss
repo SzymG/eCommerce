@@ -1,0 +1,45 @@
+// TODO: Czy można poradzić sobie jakoś z tymi importantami?
+
+a.link-main {
+    color: $primaryColor !important;
+
+    &:hover {
+        color: $secondaryColor !important;
+    }
+}
+
+.btn.btn-main {
+    color: $white !important;
+    background-color: $primaryColor !important;
+    border-color: $primaryColor !important;
+    
+    &:hover {
+        color: $white !important;
+        background-color: $secondaryColor !important;
+        border-color: $tertiaryColor !important;
+    }
+    
+    &::not(:disabled):not(.disabled):active {
+        color: $white !important;
+        background-color: $tertiaryColor !important;
+        border-color: $quaternaryColor !important;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.headline {
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.subheadline {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

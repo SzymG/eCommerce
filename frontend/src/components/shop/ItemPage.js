@@ -28,7 +28,7 @@ function ItemPage(props) {
             </div>
         </div>
         <div className="col-md-7 pb-4">
-            <img src={item.photoUrl} alt={item.name} className={'shadow'}/>
+            <img src={item.photo_url} alt={item.name} className={'shadow'}/>
         </div>
         <div className="col-md-5 content-container">
             <div className="info-container">

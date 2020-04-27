@@ -12,7 +12,7 @@ function CartItem(props) {
 
     return <div className={'cart-item-container pt-4 row justify-content-center'}>
         <div className="col-1 icon">
-            <img src={props.item.photoUrl} alt={props.item.name}/>
+            <img src={props.item.photo_url} alt={props.item.name}/>
         </div>
         <div className="col-9 content-container">
             <Link className="info-container row no-gutters" to={{

@@ -1,0 +1,38 @@
+nav {
+    
+    &.navbar-blue {
+        background-color: $white;
+        border-bottom: 2px solid $primaryColor; 
+        
+        a {
+            color: $primaryColor;
+            
+            &:active {
+                background-color: transparent;
+                color: $secondaryColor;
+            }
+        }
+        
+        .active {
+
+            a {
+                color: $secondaryColor;
+                font-weight: bold;
+            }
+        }
+
+        .navbar-toggler-icon {
+
+            i.blue-toggler-icon{
+                color: $primaryColor;
+            }
+        }
+    }
+    
+    .navbar-brand {
+    
+        .header-logo {
+            max-height: 40px;
+        }
+    }  
+}

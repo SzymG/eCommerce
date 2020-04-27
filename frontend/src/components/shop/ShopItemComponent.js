@@ -6,7 +6,7 @@ function ShopItem(props) {
     const redirectUrl = `/item/${props.item.id}`;
 
     return <div className={'shop-item-container col-sm-6 col-md-4'}>
-        <img src={props.item.photoUrl} alt={props.item.name} className={'shadow'}/>
+        <img src={props.item.photo_url} alt={props.item.name} className={'shadow'}/>
         <Link className="info-container row no-gutters" to={{
             pathname: redirectUrl,
             state: {

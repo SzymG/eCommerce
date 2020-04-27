@@ -1,0 +1,25 @@
+form {
+
+    .has-error {
+    
+        label {
+            color: $colorError;
+        }
+        
+        input {
+            border-color: $colorError;
+        }
+        
+        .help-block {
+            color: $colorError;
+        }
+    }
+    
+    .required {
+    
+        label:after {
+            content: "*";
+            margin-left: 5px;
+        }
+    }
+}
