@@ -9,6 +9,7 @@ import homeImage from './assets/img/home.png';
 import cartImage from './assets/img/cart.png';
 import ItemPage from "./components/shop/ItemPage";
 import Cart from "./components/cart/CartComponent";
+import Success from "./components/cart/SuccessComponent";
 
 function App() {
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')));
@@ -36,6 +37,7 @@ function App() {
                         <Shop/>
                     </Route>
                     <Route exact path='/cart' render={(props) => <Cart {...props} handleCartUpdate={handleCartUpdate} />}/>
+                    <Route exact path='/success' render={(props) => <Success {...props} handleCartUpdate={handleCartUpdate} />}/>
                     <Route exact path='/item/:id' render={(props) => <ItemPage {...props} handleCartUpdate={handleCartUpdate} />}/>
                 </Switch>
             </div>

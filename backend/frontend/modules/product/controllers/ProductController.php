@@ -20,6 +20,7 @@ class ProductController extends \yii\web\Controller
                     'Access-Control-Request-Method'    => ['GET', 'POST'],
                     'Access-Control-Allow-Credentials' => true,
                     'Access-Control-Max-Age'           => 3600,                 // Cache (seconds)
+                    'Access-Control-Request-Headers' => ['*'],
                 ],
             ],
 
@@ -37,5 +38,4 @@ class ProductController extends \yii\web\Controller
             return array('status' => false, 'data' => 'No products');
         }
     }
-
 }

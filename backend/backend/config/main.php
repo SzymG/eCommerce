@@ -23,6 +23,9 @@ return [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
             'adminUrl' => '/admin',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\ar\User',

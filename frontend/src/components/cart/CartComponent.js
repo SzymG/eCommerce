@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/cart/style.css';
 import CartItem from "./CartItemComponent";
+import {fetchData} from "../../helpers/RequestHelper";
 
 
 class Cart extends React.Component {
@@ -11,10 +12,16 @@ class Cart extends React.Component {
             cart: JSON.parse(localStorage.getItem('cart')),
         };
         this.deleteHandler = this.deleteHandler.bind(this);
+        this.buy = this.buy.bind(this);
     }
 
     buy() {
-        console.log("BUYED")
+        const cartData = JSON.stringify(this.state.cart);
+        fetchData('GET', 'payment/index?cart=' + cartData).then((response) => {
+            if(response.data) {
+                window.open(response.data, "_blank")
+            }
+        });
     }
 
     sumPrices() {

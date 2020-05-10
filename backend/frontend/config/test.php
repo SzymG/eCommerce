@@ -10,6 +10,9 @@ return [
         ],
         'request' => [
             'cookieValidationKey' => 'test',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
     ],
 ];

@@ -22,7 +22,9 @@
         "sizeg/yii2-jwt": "^1.2",
         "2amigos/yii2-multi-select-widget": "*",
         "kartik-v/yii2-widget-fileinput": "dev-master",
-        "2amigos/yii2-tinymce-widget": "~1.1"
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "yiisoft/yii2-httpclient": "^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

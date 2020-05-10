@@ -1,0 +1,13 @@
+.success-container .row {
+    flex-direction: column;
+    align-items: center;
+}
+
+.success-container img {
+    width: 300px;
+    height: 300px;
+}
+
+.success-container h1 {
+    text-align: center;
+}

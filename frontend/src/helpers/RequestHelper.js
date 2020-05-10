@@ -6,6 +6,8 @@ export const fetchData = (method, url, body = "") => {
         let requestHandler = new XMLHttpRequest();
         requestHandler.open(method, url, true);
         requestHandler.withCredentials = true;
+        requestHandler.setRequestHeader("Content-Type", "application/json");
+        requestHandler.setRequestHeader("Access-Control-Allow-Methods", method);
 
         requestHandler.onload = function () {
             if (this.status >= 200 && this.status < 300) {
