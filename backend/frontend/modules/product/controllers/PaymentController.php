@@ -5,33 +5,32 @@ namespace frontend\modules\product\controllers;
 use Yii;
 use yii\filters\Cors;
 use yii\helpers\Json;
-use yii\web\Controller;
-use yii\web\Response;
 use yii\httpclient\Client;
+use yii\web\Response;
 
 
 /**
  * Payment controller for the `product` module
  */
 
-class PaymentController extends Controller
+class PaymentController extends \yii\web\Controller
 {
     /**
-     * @var Json with bought items
+     * @var Json Bought items, from frontend
      */
-    private $cart;
+    public $cart;
     /**
-     * @var string returned from PayU authorization
+     * @var string Token returned from PayU authorization
      */
-    private $token;
+    public $token;
     /**
-     * @var array necessary for PayU order
+     * @var array Data necessary for PayU order
      */
-    private $data;
+    public $data;
     /**
-     * @var string returned from PayU successful order
+     * @var string Location returned from PayU successful order
      */
-    private $redirectLocation;
+    public $redirectLocation;
 
     /**
      * Function which extends parent behaviors, to avoid CORS
@@ -58,9 +57,11 @@ class PaymentController extends Controller
     }
 
     /**
-     * @return array Returns array with status and data
+     * Action which is responsible for PauU integration
+     * @return array Returns PayU location, on which user can continue shopping
      * @throws \yii\base\InvalidConfigException
      */
+
     public function actionIndex()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -96,8 +97,8 @@ class PaymentController extends Controller
             ]);
         }
 
-        $data['totalAmount'] = strval($totalAmount);
-        $data['products'] = $products;
+        $this->data['totalAmount'] = strval($totalAmount);
+        $this->data['products'] = $products;
 
         $client = new Client();
         $response = $client->createRequest()
@@ -106,10 +107,11 @@ class PaymentController extends Controller
             ->setUrl('https://secure.snd.payu.com/api/v2_1/orders/')
             ->addHeaders(['content-type' => 'application/json'])
             ->addHeaders(['Authorization' => 'Bearer '.$this->token])
-            ->setData($data)
+            ->setData($this->data)
             ->send();
 
-        $this->redirectLocation = ($response->headers)['location'];
+        $responseHeaders = $response->headers;
+        $this->redirectLocation = $responseHeaders['location'];
 
         return array('status' => true, 'data' => $this->redirectLocation);
     }

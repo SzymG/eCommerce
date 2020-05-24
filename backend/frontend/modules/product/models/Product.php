@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "product".
  *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property string|null $photo_url
- * @property int|null $price
+ * @property int $id Product id
+ * @property string $name Product name
+ * @property string|null $description Product description
+ * @property string|null $photo_url Product photo url
+ * @property int|null $price Product price
  */
 class Product extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * Name of the table
      */
     public static function tableName()
     {
@@ -24,7 +24,7 @@ class Product extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * Rules of product model
      */
     public function rules()
     {
@@ -37,7 +37,7 @@ class Product extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * Product model labels
      */
     public function attributeLabels()
     {
