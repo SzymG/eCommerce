@@ -8,7 +8,7 @@ function Success(props) {
     const [cartCleared, setCartCleared] = useState(false);
 
     if(!cartCleared) {
-        localStorage.removeItem('cart')
+        localStorage.removeItem('cart');
         props.handleCartUpdate();
         setCartCleared(true);
     }

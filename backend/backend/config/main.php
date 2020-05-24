@@ -11,8 +11,8 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'absolwenci-backend',
-    'name' => 'Absolwenci - panel administracyjny',
+    'id' => 'ecommerce',
+    'name' => 'Ecommerce - panel administracyjny',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],

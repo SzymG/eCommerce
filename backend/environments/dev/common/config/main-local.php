@@ -6,7 +6,7 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=absolwenci',
+            'dsn' => 'mysql:host=localhost;dbname=ecommerce',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',

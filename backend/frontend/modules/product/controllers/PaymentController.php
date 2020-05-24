@@ -3,21 +3,47 @@
 namespace frontend\modules\product\controllers;
 
 use Yii;
+use yii\filters\Cors;
 use yii\helpers\Json;
-use yii\httpclient\JsonParser;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\httpclient\Client;
 
 
-class PaymentController extends \yii\web\Controller
+/**
+ * Payment controller for the `product` module
+ */
+
+class PaymentController extends Controller
 {
+    /**
+     * @var Json with bought items
+     */
+    private $cart;
+    /**
+     * @var string returned from PayU authorization
+     */
+    private $token;
+    /**
+     * @var array necessary for PayU order
+     */
+    private $data;
+    /**
+     * @var string returned from PayU successful order
+     */
+    private $redirectLocation;
+
+    /**
+     * Function which extends parent behaviors, to avoid CORS
+     * @return array Returns array of behaviors
+     */
     public function behaviors() {
 
         return array_merge(parent::behaviors(), [
 
             // For cross-domain AJAX request
             'corsFilter'  => [
-                'class' => \yii\filters\Cors::className(),
+                'class' => Cors::className(),
                 'cors'  => [
                     // restrict access to domains:
                     'Origin'                           => ['http://localhost:3000'],
@@ -31,10 +57,14 @@ class PaymentController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * @return array Returns array with status and data
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionIndex()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $cart = JSON::decode(Yii::$app->request->get('cart'));
+        $this->cart = JSON::decode(Yii::$app->request->get('cart'));
 
         $client = new Client();
         $response = $client->createRequest()
@@ -44,9 +74,9 @@ class PaymentController extends \yii\web\Controller
             ->setData(['grant_type' => 'client_credentials', 'client_id' => '386265', 'client_secret' => '64921439dce22139e4d25ec1862a189c'])
             ->send();
 
-        $token = Json::decode($response->content)['access_token'];
+        $this->token = Json::decode($response->content)['access_token'];
 
-        $data = [
+        $this->data = [
             "continueUrl" => "http://localhost:3000/success",
             "customerIp" => Yii::$app->getRequest()->getUserIP(),
             "merchantPosId" => "386265",
@@ -57,7 +87,7 @@ class PaymentController extends \yii\web\Controller
         $products = [];
         $totalAmount = 0;
 
-        foreach($cart as $item) {
+        foreach($this->cart as $item) {
             $totalAmount += $item['price'] * 100;
             array_push($products, [
                 "name" => $item['name'],
@@ -75,11 +105,13 @@ class PaymentController extends \yii\web\Controller
             ->setFormat(Client::FORMAT_JSON)
             ->setUrl('https://secure.snd.payu.com/api/v2_1/orders/')
             ->addHeaders(['content-type' => 'application/json'])
-            ->addHeaders(['Authorization' => 'Bearer '.$token])
+            ->addHeaders(['Authorization' => 'Bearer '.$this->token])
             ->setData($data)
             ->send();
 
-        return array('status' => true, 'data' => ($response->headers)['location']);
+        $this->redirectLocation = ($response->headers)['location'];
+
+        return array('status' => true, 'data' => $this->redirectLocation);
     }
 
 }

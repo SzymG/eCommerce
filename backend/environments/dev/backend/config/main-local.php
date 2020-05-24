@@ -10,7 +10,7 @@ $config = [
             ]
         ],
         'urlManagerFrontend' => [
-            'baseUrl' => '/absolwenci_pp'
+            'baseUrl' => '/eCommerce'
         ],
     ],
 ];

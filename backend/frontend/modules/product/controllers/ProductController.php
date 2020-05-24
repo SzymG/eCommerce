@@ -6,8 +6,16 @@ use frontend\modules\product\models\Product;
 use Yii;
 use yii\web\Response;
 
+/**
+ * Product controller for the `product` module
+ */
+
 class ProductController extends \yii\web\Controller
 {
+    /**
+     * Function which extends parent behaviors, to avoid CORS
+     * @return array Returns array of behaviors
+     */
     public function behaviors() {
         return array_merge(parent::behaviors(), [
 
@@ -26,6 +34,11 @@ class ProductController extends \yii\web\Controller
 
         ]);
     }
+
+    /**
+     * Action called from frontend to fetch products
+     * @return array Returns array of products from database
+     */
 
     public function actionIndex()
     {

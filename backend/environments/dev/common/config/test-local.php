@@ -6,7 +6,7 @@ return yii\helpers\ArrayHelper::merge(
     [
         'components' => [
 			'db' => [
-				'dsn' => 'mysql:host=localhost;dbname=absolwenci_test',
+				'dsn' => 'mysql:host=localhost;dbname=ecommerce',
 				'username' => 'root',
 				'password' => 'root',
 			]
